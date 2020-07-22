@@ -27,7 +27,7 @@ jobs:
         yarn install
         yarn build
 
-    - name: Push generated files
+    - name: Push generated files -- dist
       run: |
         git config --local user.name "Github Action"
         git config --local user.email "action@github.com"
