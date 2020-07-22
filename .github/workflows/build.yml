@@ -26,6 +26,21 @@ jobs:
       run: |
         yarn install
         yarn build
+
+    - name: Commit files
+      run: |
+        cd dist/
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Commit dist" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: 'production'
+        directory: 'dist/'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
