@@ -27,21 +27,34 @@ jobs:
         yarn install
         yarn build
 
-    - name: Push generated files -- dist
-      run: |
-        cd dist
-        git init
-        git config --local user.name "Github Action"
-        git config --local user.email "action@github.com"
-        git add -f .
-        git commit -m "Production build from Action ${GITHUB_SHA}"
-        git push "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git" HEAD:${BRANCH}
-        rm -fr .git
-        cd ..
-      env:
-        TOKEN: ${{secrets.GITHUB_TOKEN}}
-        REPOSITORY: ${{github.repository}}
-        BRANCH: production
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        publish_branch: production  # default: gh-pages
+        commit_message: ${{ github.event.head_commit.message }}
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+
+    # Ref:
+    # https://github.com/tsunematsu21/actions-publish-gh-pages/blob/master/.github/workflows/build.yml
+    # https://github.com/helaili/jekyll-action/blob/master/entrypoint.sh
+    # - name: Push generated files -- dist
+    #   run: |
+    #     cd dist
+    #     git init
+    #     git config --local user.name "Github Action"
+    #     git config --local user.email "action@github.com"
+    #     git add -f .
+    #     git commit -m "Production build from Action ${GITHUB_SHA}"
+    #     git push "https://${GITHUB_ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git" HEAD:${BRANCH}
+    #     rm -fr .git
+    #     cd ..
+    #   env:
+    #     TOKEN: ${{secrets.GITHUB_TOKEN}}
+    #     REPOSITORY: ${{github.repository}}
+    #     BRANCH: production
 
     # - name: Push changes
     #   uses: ad-m/github-push-action@master
