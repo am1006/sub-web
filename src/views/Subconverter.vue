@@ -20,7 +20,7 @@
                   v-model="form.sourceSubUrl"
                   type="textarea"
                   rows="3"
-                  placeholder="支持订阅或ss/ssr/vmess单链接。多个链接请每行一个或用 | 分隔"
+                  placeholder="请输入订阅链接"
                 />
               </el-form-item>
               <el-form-item label="客户端:">
