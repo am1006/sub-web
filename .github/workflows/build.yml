@@ -27,23 +27,24 @@ jobs:
         yarn install
         yarn build
 
-    - name: Commit files
+    - name: Push generated files
       run: |
-        cd dist/
-        ls
-        git status
-      # run: |
-      #   cd dist/
-      #   git config --local user.email "action@github.com"
-      #   git config --local user.name "GitHub Action"
-      #   git commit -m "Commit dist" -a
+        git config --local user.name "Github Action"
+        git config --local user.email "action@github.com"
+        git add -f dist
+        git commit -m "production: build"
+        git push "https://${TOKEN}@github.com/${REPOSITORY}.git" HEAD:${BRANCH}
+      env:
+        TOKEN: ${{secrets.GITHUB_TOKEN}}
+        REPOSITORY: ${{github.repository}}
+        BRANCH: production
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        branch: 'production'
-        directory: 'dist/'
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     branch: 'production'
+    #     directory: 'dist/'
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
 
     # - name: Upload
     #   uses: actions/upload-artifact@v1
