@@ -35,11 +35,11 @@ jobs:
         git config --local user.email "action@github.com"
         git add -f .
         git commit -m "Production build from Action ${GITHUB_SHA}"
-        git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/${REPOSITORY}.git" HEAD:${BRANCH}
+        git push "https://$GITHUB_ACTOR:${TOKEN}@github.com/${REPOSITORY}.git" HEAD:${BRANCH}
         rm -fr .git
         cd ..
       env:
-        TOKEN: ${{secrets.GITHUB_TOKEN}}
+        TOKEN: ${{secrets.Action}}
         REPOSITORY: ${{github.repository}}
         BRANCH: production
 
