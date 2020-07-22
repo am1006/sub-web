@@ -29,11 +29,15 @@ jobs:
 
     - name: Push generated files -- dist
       run: |
+        cd dist
+        git init
         git config --local user.name "Github Action"
         git config --local user.email "action@github.com"
-        git add -f dist
-        git commit -m "production: build"
+        git add -f .
+        git commit -m "Production build from Action ${GITHUB_SHA}"
         git push "https://${TOKEN}@github.com/${REPOSITORY}.git" HEAD:${BRANCH}
+        rm -fr .git
+        cd ..
       env:
         TOKEN: ${{secrets.GITHUB_TOKEN}}
         REPOSITORY: ${{github.repository}}
