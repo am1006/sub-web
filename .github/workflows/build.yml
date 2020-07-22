@@ -30,9 +30,13 @@ jobs:
     - name: Commit files
       run: |
         cd dist/
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Commit dist" -a
+        ls
+        git status
+      # run: |
+      #   cd dist/
+      #   git config --local user.email "action@github.com"
+      #   git config --local user.name "GitHub Action"
+      #   git commit -m "Commit dist" -a
 
     - name: Push changes
       uses: ad-m/github-push-action@master
@@ -41,8 +45,8 @@ jobs:
         directory: 'dist/'
         github_token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Upload
-      uses: actions/upload-artifact@v1
-      with:
-        name: dist
-        path: dist/
+    # - name: Upload
+    #   uses: actions/upload-artifact@v1
+    #   with:
+    #     name: dist
+    #     path: dist/
