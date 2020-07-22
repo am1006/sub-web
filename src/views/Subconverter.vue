@@ -4,17 +4,17 @@
       <el-col>
         <el-card>
           <div slot="header">
-            Subscription Converter
+            V2Plus Subscription
             <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
 
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
           <el-container>
             <el-form :model="form" label-width="120px" label-position="left" style="width: 100%">
-              <el-form-item label="模式设置:">
+              <!-- <el-form-item label="模式设置:">
                 <el-radio v-model="advanced" label="1">基础模式</el-radio>
                 <el-radio v-model="advanced" label="2">进阶模式</el-radio>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="订阅链接:">
                 <el-input
                   v-model="form.sourceSubUrl"
@@ -30,7 +30,7 @@
               </el-form-item>
 
               <div v-if="advanced === '2'">
-                <el-form-item label="后端地址:">
+                <!-- <el-form-item label="后端地址:">
                   <el-autocomplete
                     style="width: 100%"
                     v-model="form.customBackend"
@@ -39,7 +39,7 @@
                   >
                     <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
                   </el-autocomplete>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="远程配置:">
                   <el-select
                     v-model="form.remoteConfig"
@@ -129,7 +129,7 @@
                   >复制</el-button>
                 </el-input>
               </el-form-item>
-              <el-form-item label="订阅短链接:">
+              <!-- <el-form-item label="订阅短链接:">
                 <el-input class="copy-content" disabled v-model="curtomShortSubUrl">
                   <el-button
                     slot="append"
@@ -139,7 +139,7 @@
                     icon="el-icon-document-copy"
                   >复制</el-button>
                 </el-input>
-              </el-form-item>
+              </el-form-item> -->
 
               <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
                 <el-button
@@ -148,24 +148,24 @@
                   @click="makeUrl"
                   :disabled="form.sourceSubUrl.length === 0"
                 >生成订阅链接</el-button>
-                <el-button
+                <!-- <el-button
                   style="width: 120px"
                   type="danger"
                   @click="makeShortUrl"
                   :loading="loading"
                   :disabled="customSubUrl.length === 0"
-                >生成短链接</el-button>
+                >生成短链接</el-button> -->
                 <!-- <el-button style="width: 120px" type="primary" @click="surgeInstall" icon="el-icon-connection">一键导入Surge</el-button> -->
               </el-form-item>
 
               <el-form-item label-width="0px" style="text-align: center">
-                <el-button
+                <!-- <el-button
                   style="width: 120px"
                   type="primary"
                   @click="dialogUploadConfigVisible = true"
                   icon="el-icon-upload"
                   :loading="loading"
-                >上传配置</el-button>
+                >上传配置</el-button> -->
                 <el-button
                   style="width: 120px"
                   type="primary"
@@ -218,19 +218,19 @@
 </template>
 
 <script>
-const project = "https://github.com/CareyWang/sub-web";
+const project = "https://v2plus.conveymind.com";
 const remoteConfigSample =
-  "https://raw.githubusercontent.com/tindy2013/subconverter/master/base/config/example_external_config.ini";
-const gayhubRelease = "https://github.com/tindy2013/subconverter/releases";
-const defaultBackend = "https://api.wcc.best/sub?";
-const shortUrlBackend = "https://api.suo.yt/short";
-const configUploadBackend = "https://api.wcc.best/config/upload";
-const tgBotLink = "https://t.me/CareyWong_bot";
+  "https://v2plus.conveymind.com";
+const gayhubRelease = "https://v2plus.conveymind.com";
+const defaultBackend = "https://v2plus.conveymind.com/convert/sub?";
+const shortUrlBackend = "https://v2plus.conveymind.com";
+const configUploadBackend = "https://v2plus.conveymind.com";
+const tgBotLink = "https://v2plus.conveymind.com";
 
 export default {
   data() {
     return {
-      backendVersion: "",
+      backendVersion: "0.6.1 Production",
       advanced: "2",
 
       // 是否为 PC 端
